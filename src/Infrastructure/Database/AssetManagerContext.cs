@@ -1,4 +1,5 @@
 ﻿using AssetManager.Domain.Entities;
+using AssetManager.Infrastructure.Configuration;
 using Contracts.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +19,7 @@ namespace AssetManager.Infrastructure.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=C:/data/mysqlitedatabase.db");
+            optionsBuilder.UseSqlite($"Data Source={EnvUtil.GetSQLLiteDbUrl()}");
         }
     }
 }

@@ -1,5 +1,6 @@
 using AssetManager.Api.Middleware;
 using AssetManager.Application.Handlers.Assets.Queries.GetAssetList;
+using AssetManager.Infrastructure.Configuration;
 using AssetManager.Infrastructure.Database;
 using Contracts.Database;
 using FluentValidation;
@@ -7,7 +8,7 @@ using MediatR;
 using Serilog;
 using System.Text.Json;
 
-Log.Logger = new LoggerConfiguration().Enrich.FromLogContext().WriteTo.Elasticsearch(new Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions(new Uri("http://localhost:9200")) { 
+Log.Logger = new LoggerConfiguration().Enrich.FromLogContext().WriteTo.Elasticsearch(new Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions(new Uri(EnvUtil.GetElasticUrl())) { 
     AutoRegisterTemplate = true,
     IndexFormat = "asset-manager"
 }).CreateLogger();
