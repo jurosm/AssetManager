@@ -1,9 +1,8 @@
-﻿using AssetManager.Application.Common;
-using MediatR;
+﻿using MediatR;
 
 namespace AssetManager.Application.Handlers.Categories.Queries.GetCategoryList
 {
-    public class GetCategoryListQuery : IRequest<ListResponse<GetCategoryListModel>>
+    public class GetCategoryListQuery : IRequest<List<GetCategoryListModel>>
     {
     }
 }

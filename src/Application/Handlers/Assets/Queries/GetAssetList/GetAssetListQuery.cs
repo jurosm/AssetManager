@@ -1,9 +1,8 @@
-﻿using AssetManager.Application.Common;
-using MediatR;
+﻿using MediatR;
 
 namespace AssetManager.Application.Handlers.Assets.Queries.GetAssetList
 {
-    public class GetAssetListQuery : IRequest<ListResponse<GetAssetListModel>>
+    public class GetAssetListQuery : IRequest<List<GetAssetListModel>>
     {
     }
 }

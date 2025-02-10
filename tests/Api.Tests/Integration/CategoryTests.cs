@@ -1,5 +1,4 @@
-﻿using AssetManager.Application.Common;
-using AssetManager.Application.Handlers.Categories.Queries.GetCategoryList;
+﻿using AssetManager.Application.Handlers.Categories.Queries.GetCategoryList;
 using AssetManager.Domain.Entities;
 using Newtonsoft.Json;
 using System.Net;
@@ -38,7 +37,7 @@ namespace Api.Tests.Integration
             Assert.Equal(HttpStatusCode.OK, getCategoryRes.StatusCode);
 
             var categoryResBodyString = await getCategoryRes.Content.ReadAsStringAsync();
-            var categoryResBody = JsonConvert.DeserializeObject<ListResponse<GetCategoryListModel>>(categoryResBodyString);
+            var categoryResBody = JsonConvert.DeserializeObject<List<GetCategoryListModel>>(categoryResBodyString);
 
             Assert.NotNull(categoryResBody);
         }

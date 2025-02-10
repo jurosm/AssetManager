@@ -1,5 +1,4 @@
 ﻿using Api.Tests.Helpers;
-using AssetManager.Application.Common;
 using AssetManager.Application.Exceptions;
 using AssetManager.Application.Handlers.Assets.Queries.GetAssetList;
 using AssetManager.Domain.Entities;
@@ -72,7 +71,7 @@ namespace Api.Tests.Integration
             Assert.NotNull(getAssetListRes);
 
             var assetListString = await getAssetListRes.Content.ReadAsStringAsync();
-            var assetList = JsonConvert.DeserializeObject<ListResponse<GetAssetListModel>>(assetListString);
+            var assetList = JsonConvert.DeserializeObject<List<GetAssetListModel>>(assetListString);
 
             Assert.NotNull(assetList);
         }
