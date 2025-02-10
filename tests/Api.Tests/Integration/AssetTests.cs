@@ -1,5 +1,7 @@
 ﻿using Api.Tests.Helpers;
+using AssetManager.Application.Common;
 using AssetManager.Application.Exceptions;
+using AssetManager.Application.Handlers.Assets.Queries.GetAssetList;
 using AssetManager.Domain.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -22,7 +24,7 @@ namespace Api.Tests.Integration
             Assert.NotNull(createAssetRes);
             Assert.Equal(HttpStatusCode.Created, createAssetRes.StatusCode);
 
-            DefaultContractResolver contractResolver = new DefaultContractResolver
+            DefaultContractResolver contractResolver = new()
             {
                 NamingStrategy = new SnakeCaseNamingStrategy()
             };
@@ -58,6 +60,21 @@ namespace Api.Tests.Integration
             Assert.NotNull(exception);
             Assert.Equal("asset.category.not_found", exception.ErrorCode);
             Assert.Equal($"Category with ID={int.MaxValue} not found!", exception.Message);
+        }
+
+        [Fact]
+        public async void GetAssetList_ValidData_ReturnsOk()
+        {
+            var client = _factory.CreateClient();
+
+            var getAssetListRes = await client.GetAsync("/asset");
+
+            Assert.NotNull(getAssetListRes);
+
+            var assetListString = await getAssetListRes.Content.ReadAsStringAsync();
+            var assetList = JsonConvert.DeserializeObject<ListResponse<GetAssetListModel>>(assetListString);
+
+            Assert.NotNull(assetList);
         }
     }
 }

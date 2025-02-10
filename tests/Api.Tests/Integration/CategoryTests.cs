@@ -1,4 +1,6 @@
-﻿using AssetManager.Domain.Entities;
+﻿using AssetManager.Application.Common;
+using AssetManager.Application.Handlers.Categories.Queries.GetCategoryList;
+using AssetManager.Domain.Entities;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
@@ -23,6 +25,22 @@ namespace Api.Tests.Integration
 
             Assert.True(categoryResBody.Id > 0);
             Assert.Equal(categoryPayload.Name, categoryResBody.Name);
+        }
+
+        [Fact]
+        public async void GetCategoryList_ValidData_ReturnsOk()
+        {
+            var client = _factory.CreateClient();
+
+            var getCategoryRes = await client.GetAsync("/category");
+
+            Assert.NotNull(getCategoryRes);
+            Assert.Equal(HttpStatusCode.OK, getCategoryRes.StatusCode);
+
+            var categoryResBodyString = await getCategoryRes.Content.ReadAsStringAsync();
+            var categoryResBody = JsonConvert.DeserializeObject<ListResponse<GetCategoryListModel>>(categoryResBodyString);
+
+            Assert.NotNull(categoryResBody);
         }
     }
 }
